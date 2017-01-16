@@ -26,6 +26,7 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix", function($s
 
 
     $scope.neflixSearch = function() {
+      
         $http({
             method: 'GET',
             url: 'http://netflixroulette.net/api/api.php?title=Attack%20on%20titan'
