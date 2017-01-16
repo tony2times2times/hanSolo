@@ -1,5 +1,12 @@
-<div ng-controller="home" >
-  <h2>home</h2>
-  <!-- <button type="button" name="button" ng-click="clicky()">Attempt High-Five</button> -->
-  <!-- <p>Successes: {{wins}} </p> -->
+<div class="container-fluid">
+  <form>
+    <div class="search">
+  <input id="input_text" type="text" placeholder="Movie Title">
+  <label for="movie">Movie</label>
+  <input type="radio" name="mediaType" value="movie" checked>
+  <label for="tv">TV Show</label>
+  <input type="radio" name="mediaType" value="tv">
+  <button type="button" name="search" ng-click="search()"> Search </button>
+  </form>
+  </div>
 </div>
