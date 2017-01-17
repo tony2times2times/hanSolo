@@ -10,16 +10,15 @@
   </form>
   </div>
   <div class="container-fluid">
-  <div class= "form-control" ng-repeat='flick in flix'>
-                  Name : {{flick.title}}
-                  <br>
-                  date : {{flick.release_date}}
-                  <br>
-                  language : {{flick.original_language}}
-                  <br>
-                  <img ng-src="{{flick.poster}}" alt="poster" />
-
-              <button class='btn-danger btn-del' type="button" ng-click='del(pet._id)' ng-show='pet.info' > delete</button>
+  <div class= "form-control flick-display" ng-repeat='flick in flix'>
+                  <button class='flick-display' type="button" name="button"ng-mouseover='displayinfo($index)'>
+                    <div class="info">
+                      Name : {{flick.title}}
+                      date : {{flick.release_date}}
+                      language : {{flick.original_language}}
+                    </div>
+                  <img class='poster' ng-src="{{flick.poster}}" alt="poster" />
+                  </button>
             </div>
 </div>
 

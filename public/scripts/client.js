@@ -62,9 +62,13 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix", function($s
         $scope.theMovieDBSearch(title);
     };
     $scope.poster = function() {
-      for (var i = 0; i < $scope.flix.length; i++) {
-        $scope.flix[i].poster = 'https://image.tmdb.org/t/p/w500' + $scope.flix[i].poster_path;
-      }
+        for (var i = 0; i < $scope.flix.length; i++) {
+            if ($scope.flix[i].poster_path === null) {
+              $scope.flix[i].poster = '../images/black.jpg';
+            } else {
+                $scope.flix[i].poster = 'https://image.tmdb.org/t/p/w500' + $scope.flix[i].poster_path;
+            }
+        }
     };
 }]);
 
