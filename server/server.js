@@ -4,6 +4,7 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var router = require('./routes/router.js');
+var theMovieDBRouter = require('./routes/theMovieDB.js');
 var mongoURI = "mongodb://localhost:27017/togetherflix";
 var MongoDB = mongoose.connect(mongoURI).connection;
 var util = require('util');
@@ -26,8 +27,10 @@ app.listen('2305', function(){
   console.log('listening on 2305');
 });
 
-//route incoming traffic to router
+
 app.use('/', router);
+//route movie data base requests to its own router
+app.use('/theMovieDB', theMovieDBRouter);
 
 //make the public foulder accessable to clients
 app.use(express.static('public'));

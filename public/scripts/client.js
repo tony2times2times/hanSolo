@@ -15,7 +15,9 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
 
 }]);
 togetherApp.factory("flix", function() {
-    var flix = {};
+    var flix = {
+        found: []
+    };
 
     return flix;
 });
@@ -25,8 +27,8 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix", function($s
     $scope.flix = [];
 
 
-    $scope.neflixSearch = function() {
-      
+    $scope.neflixSearch = function(title) {
+        console.log(title);
         $http({
             method: 'GET',
             url: 'http://netflixroulette.net/api/api.php?title=Attack%20on%20titan'
@@ -36,27 +38,35 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix", function($s
             console.log('error', error);
         });
     };
-    $scope.omdbSearch = function() {
+    $scope.theMovieDBSearch = function(title) {
         $http({
             method: 'GET',
-            url: '/'
+            url: '/theMovieDB/' + title
         }).then(function successCallback(response) {
             console.log(response);
+            flix.found = response.data.results;
+            $scope.flix = flix.found;
+            $scope.poster();
         }, function errorCallback(error) {
             console.log('error', error);
         });
     };
-    $scope.tvMazeSearch = function() {
-        $http({
-            method: 'GET',
-            url: 'http://api.tvmaze.com/singlesearch/shows?q=galavant'
-        }).then(function successCallback(response) {
-            console.log(response);
-        }, function errorCallback(error) {
-            console.log('error', error);
-        });
+
+    $scope.search = function() {
+        //pull title off the DOM
+        var title = $scope.title;
+        console.log('User entered: ' + title);
+        //url encode the title and remove leading and trailing white space
+        title = encodeURIComponent(title.trim());
+        console.log('encoded to: ' + title);
+        $scope.theMovieDBSearch(title);
     };
-    $scope.omdbSearch();
-    $scope.tvMazeSearch();
-    $scope.neflixSearch();
+    $scope.poster = function() {
+      for (var i = 0; i < $scope.flix.length; i++) {
+        $scope.flix[i].poster = 'https://image.tmdb.org/t/p/w500' + $scope.flix[i].poster_path;
+      }
+    };
 }]);
+
+//https://api.themoviedb.org/3/search/movie?api_key=661fc8b62286cda55f62d1ec5979c828&query=
+//Posters https://image.tmdb.org/t/p/w300_and_h450_bestv2/POSTERURL

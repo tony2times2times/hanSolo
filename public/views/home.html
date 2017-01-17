@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <form>
     <div class="search">
-  <input id="input_text" type="text" placeholder="Title">
+  <input ng-model="title" type="text" placeholder="Title">
   <label for="movie">Movie</label>
   <input type="radio" name="mediaType" value="movie" checked>
   <label for="tv">TV Show</label>
@@ -9,4 +9,18 @@
   <button type="button" name="search" ng-click="search()"> Search </button>
   </form>
   </div>
+  <div class="container-fluid">
+  <div class= "form-control" ng-repeat='flick in flix'>
+                  Name : {{flick.title}}
+                  <br>
+                  date : {{flick.release_date}}
+                  <br>
+                  language : {{flick.original_language}}
+                  <br>
+                  <img ng-src="{{flick.poster}}" alt="poster" />
+
+              <button class='btn-danger btn-del' type="button" ng-click='del(pet._id)' ng-show='pet.info' > delete</button>
+            </div>
+</div>
+
 </div>
