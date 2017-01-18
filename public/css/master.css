@@ -40,28 +40,26 @@ ul {
     padding: 0px;
     border: 0px;
     display: inline;
-    position: static;
-    /*border-width: 10px;
-    border-color: red;
-    border-style: solid;*/
+    /*position: static;
+    */
 }
 
 .poster {
-    width: 225px;
-    height: 339px;
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
     margin: 0px;
     border: 1px;
     padding: 0px;
     border-color: grey;
-    position: relative;
 }
 
 .info {
-    width: 225px;
-    height: 339px;
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
     margin: 0px;
     border: 1px;
     padding: 0px;
     border-color: fixed;
-    position: relative;
 }

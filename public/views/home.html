@@ -10,12 +10,14 @@
   </form>
   </div>
   <div class="container-fluid">
-            <button class='flick-display' type="button" name="button" ng-mouseover='showInfo($index)' ng-repeat='flick in flix' >
+            <button class='flick-display' ng-mouseover='showInfo($index)' ng-repeat='flick in flix' >
                     <div class="info " ng-if ="flick.info">
                       Name : {{flick.title}}
                       date : {{flick.release_date}}
                       language : {{flick.original_language}}
-                      <img ng-if ="flick.netflix" src="../images/netflixlogo.png" alt="avalible on netflix">
+                    <a href='{{flick.netflixLink}}' target="_blank">
+                      <img ng-if ="flick.netflix" src="../images/netflixlogo.png" alt="avalible on netflix" >
+                    </a>
                     </div>
                   <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.viewPoster" />
           </button>

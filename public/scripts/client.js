@@ -34,6 +34,9 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
             }).then(function successCallback(response) {
                 console.log(response);
                 $scope.flix[index].netflix = true;
+                $scope.flix[index].netflixLink =
+                'https://www.netflix.com/title/'+response.data.show_id;
+
             }, function errorCallback(error) {
                 //console.log('error', error);
             });
@@ -68,27 +71,32 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
         //steaming info and display properties
         $scope.getInfo = function() {
             for (var i = 0; i < $scope.flix.length; i++) {
+              //set default states for all movies
                 $scope.flix[i].netflix = false;
                 $scope.flix[i].viewPoster = true;
                 $scope.flix[i].info = false;
+                //search the netflix api to see if movie is avalible
                 var title = $scope.flix[i].title;
                 var year = ($scope.flix[i].release_date.split(/-/))[0];
                 $scope.netflixSearch(title, year, i);
+                //if no poster is avaible set default poster
                 if ($scope.flix[i].poster_path === null) {
                     $scope.flix[i].poster = '../images/black.jpg';
                 } else {
+                  //this creates a full link to display the poster to the DOM
                     $scope.flix[i].poster = ('https://image.tmdb.org/t/p/w500' +
                         $scope.flix[i].poster_path);
                 }
             }
         };
-
+//change view for selected movie
         $scope.showInfo = function(index) {
+          //reset all movies to display only thier poster
             for (var i = 0; i < $scope.flix.length; i++) {
                 $scope.flix[i].viewPoster = true;
                 $scope.flix[i].info = false;
             }
-            console.log('changeing view for index: ' + index);
+            //change view for selected movie hide the poster show thier info
             $scope.flix[index].viewPoster = false;
             $scope.flix[index].info = true;
         };
@@ -101,6 +109,8 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
 //     $scope.$apply();
 // }, 1000);
 
+
+//https://api.guidebox.com/
 //link to netflix https://www.netflix.com/title/ + id
 //https://api.themoviedb.org/3/search/movie?api_key=661fc8b62286cda55f62d1ec5979c828&query=
 //Posters https://image.tmdb.org/t/p/w300_and_h450_bestv2/POSTERURL
