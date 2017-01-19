@@ -13,11 +13,17 @@
             <button class='flick-display' ng-mouseover='showInfo($index)' ng-repeat='flick in flix' >
                     <div class="info " ng-if ="flick.info">
                       Name : {{flick.title}}
+                      <br>
                       date : {{flick.release_date}}
+                      <br>
                       language : {{flick.original_language}}
+                      <br>
                     <a href='{{flick.netflixLink}}' target="_blank">
                       <img ng-if ="flick.netflix" src="../images/netflixlogo.png" alt="avalible on netflix" >
                     </a>
+                    <img ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
+                    <br>
+                    <img ng-click='unFavorite($index)' src="../images/emptyHeart.png" alt="">
                     </div>
                   <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.viewPoster" />
           </button>

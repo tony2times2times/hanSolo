@@ -20,7 +20,8 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
 togetherApp.factory("flix", function() {
     var flix = {
         loggedIn: false,
-        found: []
+        found: [],
+        favorites: []
     };
 
     return flix;
@@ -30,6 +31,7 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
     function($scope, $http, flix) {
         console.log("homeController standing by.");
         $scope.flix = [];
+        $scope.favorites = flix.favorites;
 
         $scope.netflixSearch = function(title, year, index) {
             $http({
@@ -106,6 +108,7 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                 }
             }
         };
+
         //change view for selected movie
         $scope.showInfo = function(index) {
             //reset all movies to display only thier poster
@@ -117,14 +120,21 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
             $scope.flix[index].viewPoster = false;
             $scope.flix[index].info = true;
         };
+
+        $scope.favorite = function(index) {
+            console.log('user has favorited ' + index);
+            flix.favorites.push($scope.flix[index]);
+            $scope.favorites = flix.favorites;
+            console.log("scope favorites" + $scope.favorites);
+
+        };
     }
 ]);
 
 togetherApp.controller('favoritesController', ["$scope", "$http", "flix",
     function($scope, $http, flix) {
         console.log('favoritesController standing by.');
-
-
+        $scope.flix = flix.favorites;
     }
 ]);
 
