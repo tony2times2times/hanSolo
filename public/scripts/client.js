@@ -41,6 +41,18 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                 //console.log('error', error);
             });
         };
+
+        $scope.guidboxSearch = function() {
+            $http({
+                method: 'GET',
+                url: 'http://api-public.guidebox.com/v2/search?type=television&field=title&query=star%20wars&include_links=true&api_key=369b3de88e40804480e4ad25b18aa5d02e16ae22'
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                //console.log('error', error);
+            });
+        };
+
         $scope.theMovieDBSearch = function(title) {
             $http({
                 method: 'GET',
@@ -102,14 +114,28 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
         };
     }
 ]);
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+}
 
+function signOut() {
+   var auth2 = gapi.auth2.getAuthInstance();
+   auth2.signOut().then(function () {
+     console.log('User signed out.');
+   });
+ }
+ 
 //     setTimeout(function() {
 //     console.log('first function finished');
 //     //angular is stupid and does nto refresh the DOM after the delay...stupid
 //     $scope.$apply();
 // }, 1000);
 
-
+// /v2/search?type=movie&field=title&query=Terminator&api_key369b3de88e40804480e4ad25b18aa5d02e16ae22
 //https://api.guidebox.com/
 //link to netflix https://www.netflix.com/title/ + id
 //https://api.themoviedb.org/3/search/movie?api_key=661fc8b62286cda55f62d1ec5979c828&query=

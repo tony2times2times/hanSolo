@@ -27,6 +27,29 @@ router.get('/:id', function(req, res) {
     });
 
 });
+
+router.get('/guidebox/:id', function(req, res) {
+  console.log("req.params:" , req.params);
+    var title=req.params.id;
+    var url = ('http://api-public.guidebox.com/v2/search?type=movie&field=title&query=star%20wars&api_key=369b3de88e40804480e4ad25b18aa5d02e16ae22' + title);
+
+    https.get(url, function(response) {
+        var body = '';
+
+        response.on('data', function(chunk) {
+            body += chunk;
+        });
+
+        response.on('end', function() {
+            var flix = JSON.parse(body);
+            console.log('The following has been found:', flix);
+            res.send(flix);
+        });
+    }).on('error', function(e) {
+        console.log("Got an error: ", e);
+    });
+
+});
 ///////////////
 // $http({
 //     method: 'GET',

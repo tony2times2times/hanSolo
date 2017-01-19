@@ -2,15 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="google-signin-client_id" content="642536861020-70215a1593j5kvj1s15oukftjt7n5dgu.apps.googleusercontent.com">
     <title>TogetherFlix</title>
+    <link rel="stylesheet" href="../vendors/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/master.css">
+    <script src="https://apis.google.com/js/platform.js" async></script>
     <script src="../vendors/angular.js" charset="utf-8"></script>
     <script src="../vendors/angular-route.min.js" charset="utf-8"></script>
     <script src="../scripts/client.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="../vendors/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/master.css">
   </head>
 
   <body ng-app="togetherApp">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="#" onclick="signOut();">Sign out</a>
       <h1>TogetherFlix</h1>
 
       <ul>
