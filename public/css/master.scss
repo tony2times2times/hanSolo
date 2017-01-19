@@ -1,10 +1,7 @@
-/*.notransition {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important;
-}*/
-
+h1{
+  font-family: Arial Black;
+  color: red;
+}
 .ng-hide.ng-hide-animate {
     display: none !important;
 }
@@ -21,6 +18,9 @@ input[type=radio], input.radio {
 
 ul {
     list-style-type: none;
+}
+li{
+  display: inline;
 }
 
 .search {
@@ -62,4 +62,17 @@ ul {
     border: 1px;
     padding: 0px;
     border-color: fixed;
+}
+
+.logIn{
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  border-width: medium;
+  border-style: solid;
+  border-color: red;
+  text-align: left;
+  display: inline;
+  float: left;
+  padding: 20px;
 }

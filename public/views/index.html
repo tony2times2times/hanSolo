@@ -5,27 +5,26 @@
     <meta name="google-signin-client_id" content="642536861020-70215a1593j5kvj1s15oukftjt7n5dgu.apps.googleusercontent.com">
     <title>TogetherFlix</title>
     <link rel="stylesheet" href="../vendors/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/master.css">
+    <link rel="stylesheet" href="../css/master.min.css">
     <script src="https://apis.google.com/js/platform.js" async></script>
     <script src="../vendors/angular.js" charset="utf-8"></script>
     <script src="../vendors/angular-route.min.js" charset="utf-8"></script>
     <script src="../scripts/client.js" charset="utf-8"></script>
   </head>
-
   <body ng-app="togetherApp">
+
+    <div class="container-fluid logIn" ng-controller='logInController'>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Sign out</a>
-      <h1>TogetherFlix</h1>
+    <a ng-if='loggedIn' href="#" ng-click="signOut()">Sign out</a>
+    </div>
+
+      <h1>TOGETHERFLIX</h1>
 
       <ul>
-        <li><a href="#!/home">Home</a></li>
-        <!-- <li><a href="#!/gita">Gita</a></li>
-        <li><a href="#!/sponge">Spongebob</a></li>
-        <li><a href="#!/todd">The Todd</a></li> -->
+        <li><a href="#!/home">HOME</a></li>
+        <li><a href="#!/favorites">FAVORITES</a></li>
+
       </ul>
-
-
-
       <main ng-view ></main>
     </body>
   </html>

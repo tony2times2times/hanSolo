@@ -8,6 +8,10 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
             templateUrl: '../views/home.html',
             controller: 'homeController'
         })
+        .when("/favorites", {
+            templateUrl: '../views/favorites.html',
+            controller: 'favoritesController'
+        })
         .otherwise({
             redirectTo: "/home"
         });
@@ -15,6 +19,7 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
 
 togetherApp.factory("flix", function() {
     var flix = {
+        loggedIn: false,
         found: []
     };
 
@@ -23,7 +28,7 @@ togetherApp.factory("flix", function() {
 
 togetherApp.controller('homeController', ["$scope", "$http", "flix",
     function($scope, $http, flix) {
-        console.log("Home Controller loaded.");
+        console.log("homeController standing by.");
         $scope.flix = [];
 
         $scope.netflixSearch = function(title, year, index) {
@@ -35,7 +40,7 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                 console.log(response);
                 $scope.flix[index].netflix = true;
                 $scope.flix[index].netflixLink =
-                'https://www.netflix.com/title/'+response.data.show_id;
+                    'https://www.netflix.com/title/' + response.data.show_id;
 
             }, function errorCallback(error) {
                 //console.log('error', error);
@@ -83,7 +88,7 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
         //steaming info and display properties
         $scope.getInfo = function() {
             for (var i = 0; i < $scope.flix.length; i++) {
-              //set default states for all movies
+                //set default states for all movies
                 $scope.flix[i].netflix = false;
                 $scope.flix[i].viewPoster = true;
                 $scope.flix[i].info = false;
@@ -95,15 +100,15 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                 if ($scope.flix[i].poster_path === null) {
                     $scope.flix[i].poster = '../images/black.jpg';
                 } else {
-                  //this creates a full link to display the poster to the DOM
+                    //this creates a full link to display the poster to the DOM
                     $scope.flix[i].poster = ('https://image.tmdb.org/t/p/w500' +
                         $scope.flix[i].poster_path);
                 }
             }
         };
-//change view for selected movie
+        //change view for selected movie
         $scope.showInfo = function(index) {
-          //reset all movies to display only thier poster
+            //reset all movies to display only thier poster
             for (var i = 0; i < $scope.flix.length; i++) {
                 $scope.flix[i].viewPoster = true;
                 $scope.flix[i].info = false;
@@ -114,21 +119,45 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
         };
     }
 ]);
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
-}
 
-function signOut() {
-   var auth2 = gapi.auth2.getAuthInstance();
-   auth2.signOut().then(function () {
-     console.log('User signed out.');
-   });
- }
- 
+togetherApp.controller('favoritesController', ["$scope", "$http", "flix",
+    function($scope, $http, flix) {
+        console.log('favoritesController standing by.');
+
+
+    }
+]);
+
+togetherApp.controller('logInController', ["$scope", "$http", "flix",
+    function($scope, $http, flix) {
+        console.log('logInController standing by.');
+        $scope.loggedIn = flix.loggedIn;
+        $scope.signOut = function() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function() {
+                console.log('User signed out.');
+                flix.loggedIn = false;
+                $scope.loggedIn = flix.loggedIn;
+                $scope.$apply();
+            });
+        };
+
+        function onSignIn(googleUser) {
+            profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+            flix.loggedIn = true;
+            $scope.loggedIn = flix.loggedIn;
+            $scope.$apply();
+        }
+        window.onSignIn = onSignIn;
+    }
+]);
+
+
+
 //     setTimeout(function() {
 //     console.log('first function finished');
 //     //angular is stupid and does nto refresh the DOM after the delay...stupid
