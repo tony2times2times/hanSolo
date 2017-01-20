@@ -4,6 +4,9 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Pet = require('../models/flix.js');
 var path = require('path');
+var passport = require('passport');
+var configPort = require('../config/passport.js');
+
 
 // base url returns index.html from public foulder
 router.get('/', function(req, res) {
@@ -60,6 +63,15 @@ router.delete('/deletePet/:id', function(req, res) {
     });
 });
 
+// Google routes
+router.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+}));
+
+router.get('/auth/google/callback', passport.authenticate('google'),function(){
+  console.log('this is working');
+}
+);
 
 //makes router availble to server.js
 module.exports = router;

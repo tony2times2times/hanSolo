@@ -3,11 +3,13 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var router = require('./routes/router.js');
+var router = require('./routes/index.js');
 var theMovieDBRouter = require('./routes/theMovieDB.js');
 var mongoURI = "mongodb://localhost:27017/togetherflix";
 var MongoDB = mongoose.connect(mongoURI).connection;
 var util = require('util');
+
+
 //console.log(util.inspect(myObject, false, null))
 //use bodyParser to read incoming json objects
 app.use(bodyParser.json());
