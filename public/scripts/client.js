@@ -10,7 +10,7 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
         })
         .when("/favorites", {
             templateUrl: '../views/favorites.html',
-            controller: 'favoritesController'
+            controller: 'homeController'
         })
         .otherwise({
             redirectTo: "/home"
@@ -92,8 +92,8 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
             for (var i = 0; i < $scope.flix.length; i++) {
                 //set default states for all movies
                 $scope.flix[i].netflix = false;
-                $scope.flix[i].viewPoster = true;
                 $scope.flix[i].info = false;
+                $scope.flix[i].favorite = false;
                 //search the netflix api to see if movie is avalible
                 var title = $scope.flix[i].title;
                 var year = ($scope.flix[i].release_date.split(/-/))[0];
@@ -113,20 +113,18 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
         $scope.showInfo = function(index) {
             //reset all movies to display only thier poster
             for (var i = 0; i < $scope.flix.length; i++) {
-                $scope.flix[i].viewPoster = true;
                 $scope.flix[i].info = false;
             }
             //change view for selected movie hide the poster show thier info
-            $scope.flix[index].viewPoster = false;
             $scope.flix[index].info = true;
         };
 
         $scope.favorite = function(index) {
+            $scope.flix[index].favorite = true;
             console.log('user has favorited ' + index);
             flix.favorites.push($scope.flix[index]);
             $scope.favorites = flix.favorites;
             console.log("scope favorites" + $scope.favorites);
-
         };
     }
 ]);
