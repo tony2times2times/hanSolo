@@ -8,11 +8,45 @@ var theMovieDBRouter = require('./routes/theMovieDB.js');
 var mongoURI = "mongodb://localhost:27017/togetherflix";
 var MongoDB = mongoose.connect(mongoURI).connection;
 var util = require('util');
+var session = require('express-session');
+var configs = require('./config/auth');
+var passport = require('./config/passport');
+var authRouter = require('./routes/auth.js');
+var private = require('./routes/private/index.js');
 
 
+//app.use('/public', express.static('public'));  // serve files from public
+app.use(express.static('public'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+/** ---------- DATABASE CONNECTION HANDLING ---------- **/
+//database();
+/** ---------- SESSION CREATION AND STORAGE ---------- **/
+/**
+ * Creates session that will be stored in memory.
+ * @todo Before deploying to production,
+ * configure session store to save to DB instead of memory (default).
+ * @see {@link https://www.npmjs.com/package/express-session}
+ */
+app.use(session({
+  secret: configs.sessionVars.secret,
+  key: 'user',
+  resave: 'true',
+  saveUninitialized: false,
+  cookie: { maxage: 60000, secure: false },
+}));
+/** ---------- PASSPORT ---------- **/
+app.use(passport.initialize()); // kickstart passport
+/**
+ * Alters request object to include user object.
+ * @see {@link auth/passport}
+ */
+app.use(passport.session());
+/////////////////////////////////////
 //console.log(util.inspect(myObject, false, null))
 //use bodyParser to read incoming json objects
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 //if there is a connection error with mongo log it to the terminal
 MongoDB.on('error', function (err) {
@@ -33,6 +67,5 @@ app.listen('2305', function(){
 app.use('/', router);
 //route movie data base requests to its own router
 app.use('/theMovieDB', theMovieDBRouter);
-
-//make the public foulder accessable to clients
-app.use(express.static('public'));
+app.use('/auth', authRouter);
+app.use('/private', isLoggedIn, private);

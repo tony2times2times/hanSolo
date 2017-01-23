@@ -63,15 +63,15 @@ router.delete('/deletePet/:id', function(req, res) {
     });
 });
 
-// Google routes
-router.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile', 'email']
-}));
-
-router.get('/auth/google/callback', passport.authenticate('google'),function(){
-  console.log('this is working');
-}
-);
+// // Google routes
+// router.get('/auth/google', passport.authenticate('google', {
+//     scope: ['profile', 'email']
+// }));
+//
+// router.get('/auth/google/callback', passport.authenticate('google'),function(){
+//   console.log('this is working');
+// }
+// );
 
 //makes router availble to server.js
 module.exports = router;
