@@ -14,7 +14,7 @@ router.get('/google', passport.authenticate('google',
 
 router.get('/google/callback', passport.authenticate('google',
   {
-    successRedirect: '../../public/views/favorites.html', // take them to their private data
+    successRedirect: '/private', // take them to their private data
     failureRedirect: '/', // take them back home to try again
   })
 );

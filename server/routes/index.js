@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Pet = require('../models/flix.js');
+var Flick = require('../models/flix.js');
 var path = require('path');
 var passport = require('passport');
 var configPort = require('../config/passport.js');
@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
 //handles get requests from clients and submits them to mongoDB
 router.get('/getflix/', function(req, res) {
     console.log('getting flix');
-    Pet.find({}, function(err, userResults) {
+    Flick.find({}, function(err, userResults) {
         if (err) {
             console.log(err);
             res.sendStatus(500);
@@ -29,35 +29,35 @@ router.get('/getflix/', function(req, res) {
 });
 
 //handles pull requests from clients ands ubmits them to mongoDB
-router.post('/postPet', function(req, res) {
+router.post('/postFlic', function(req, res) {
     console.log('posting data to DB!!!');
-    //package new pet fro req.body using the pet.js schema
-    var newPet = new Pet({
+    //package new Flick fro req.body using the Flick.js schema
+    var newFlick = new Flick({
         name: req.body.name,
         animal: req.body.animal,
         age: req.body.age,
         image: req.body.image
     });
-    //saves new pet to mongoDB
-    newPet.save(function(err) {
+    //saves new Flick to mongoDB
+    newFlick.save(function(err) {
         if (err) {
             console.log("erorr: " + err);
             res.sendStatus(500);
         } else {
-            console.log("New pet posted.");
+            console.log("New Flick posted.");
             res.sendStatus(200);
         }
     });
 });
 
-router.delete('/deletePet/:id', function(req, res) {
-    console.log('deleting pet from DB!!!');
-    Pet.findByIdAndRemove(req.params.id, function(err) {
+router.delete('/deleteFlick/:id', function(req, res) {
+    console.log('deleting Flick from DB!!!');
+    Flick.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
             console.log("erorr: " + err);
             res.send(req.body);
         } else {
-            console.log("Pet has been euthanized");
+            console.log("Flick has been euthanized");
             res.send(req.body);
         }
     });

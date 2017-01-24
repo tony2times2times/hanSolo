@@ -1,8 +1,9 @@
 //global variables and imported software
 var express = require('express');
 var app = express();
-var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var session = require('express-session');
 var router = require('./routes/index.js');
 var theMovieDBRouter = require('./routes/theMovieDB.js');
 var mongoURI = "mongodb://localhost:27017/togetherflix";
@@ -13,7 +14,7 @@ var configs = require('./config/auth');
 var passport = require('./config/passport');
 var authRouter = require('./routes/auth.js');
 var private = require('./routes/private/index.js');
-
+var isLoggedIn = require('./utils/auth.js');
 
 //app.use('/public', express.static('public'));  // serve files from public
 app.use(express.static('public'));
