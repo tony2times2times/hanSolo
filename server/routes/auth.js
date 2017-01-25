@@ -22,15 +22,15 @@ router.get('/google/callback', passport.authenticate('google', {
 ///////////////// Help me Dev you're my only hope ///////////////////////////////
 router.post('/', function(req, res) {
     if (req.isAuthenticated()) {
-      var userIn = req.user.id;
-      console.log("user id is: " + userIn);
-        UserService.findUserById(userIn, function(err, user){
+        var userId = req.user.id;
+        console.log("user id is: " + userId);
+        UserService.findUserById(userId, function(err, user) {
             if (err) {
                 console.log(err);
             } else {
                 res.json({
                     status: true,
-                    user : user
+                    user: user
                 });
             }
         });
@@ -39,7 +39,29 @@ router.post('/', function(req, res) {
             status: false
         });
     }
+});
 
+//update user favorites
+router.post('/favorites', function(req, res) {
+    if (req.isAuthenticated()) {
+        var favorites = req.body.favorites;
+        UserService.updateFavoritesById(userId, favorites, function(err, user) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    status: 'user fond not able to update'
+                });
+            } else {
+                res.json({
+                    status: 'successfully updated favorites'
+                });
+            }
+        });
+    } else {
+        res.json({
+            status: 'user not found'
+        });
+    }
 });
 
 //log out User

@@ -40,6 +40,15 @@ var UserService = {
             return callback(null, user);
         });
     },
+    updateFavoritesById: function(id, favorites, callback) {
+        User.update({id:id}, {favorites:favorites}, function(err, user) {
+            if (err) {
+                return callback(err, null);
+            }
+
+            return callback(null, user);
+        });
+    },
 };
 
 module.exports = UserService;
