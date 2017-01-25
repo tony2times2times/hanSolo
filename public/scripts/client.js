@@ -157,7 +157,7 @@ togetherApp.controller('logInController', ["$scope", "$http", "flix",
             console.log('Image URL: ' + profile.getImageUrl());
             console.log('Email: ' + profile.getEmail());
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: '/auth'
             }).then(function successCallback(response) {
                 console.log(response);
