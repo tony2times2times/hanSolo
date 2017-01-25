@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
             } else {
                 res.json({
                     status: true,
-                    user: user
+                    favorites: user.favorites
                 });
             }
         });
@@ -42,24 +42,27 @@ router.post('/', function(req, res) {
 });
 
 //update user favorites
-router.post('/favorites', function(req, res) {
+router.update('/favorites', function(req, res) {
     if (req.isAuthenticated()) {
-        var favorites = req.body.favorites;
+        var userId = req.user.id;
+        var favorites = req.body.data;
+        console.log('save to DB: ' + favorites);
         UserService.updateFavoritesById(userId, favorites, function(err, user) {
             if (err) {
                 console.log(err);
                 res.json({
-                    status: 'user fond not able to update'
+                    status: 'user found not able to update'
                 });
             } else {
                 res.json({
-                    status: 'successfully updated favorites'
+                    status: 'successfully updated favorites',
+                    user: user
                 });
             }
         });
     } else {
         res.json({
-            status: 'user not found'
+            status: 'user not authenticated'
         });
     }
 });

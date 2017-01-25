@@ -41,7 +41,7 @@ var UserService = {
         });
     },
     updateFavoritesById: function(id, favorites, callback) {
-        User.update({id:id}, {favorites:favorites}, function(err, user) {
+        User.update({_id:id}, {favorites:favorites}, function(err, user) {
             if (err) {
                 return callback(err, null);
             }

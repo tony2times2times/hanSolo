@@ -125,6 +125,15 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
             flix.favorites.push($scope.flix[index]);
             $scope.favorites = flix.favorites;
             console.log("scope favorites" + $scope.favorites);
+            $http({
+                method: 'UPDATE',
+                url: '/auth/favorites',
+                data: $scope.flix[index]
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                console.log('error', error);
+            });
         };
     }
 ]);
@@ -150,21 +159,26 @@ togetherApp.controller('logInController', ["$scope", "$http", "flix",
             });
         };
 
+        //When a user signs in or opens the web page.
         function onSignIn(googleUser) {
             profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail());
+            console.log('Hello ' + profile.getName());
             $http({
                 method: 'POST',
                 url: '/auth'
             }).then(function successCallback(response) {
                 console.log(response);
+                var auth = response.data.status;
+                var favorites = response.data.favorites;
+                if (auth) {
+                    flix.loggedIn = true;
+                    flix.favorites = favorites;
+                } else {
+                    flix.loggedIn = false;
+                }
             }, function errorCallback(error) {
                 console.log('error', error);
             });
-            flix.loggedIn = true;
             $scope.loggedIn = flix.loggedIn;
             $scope.$apply();
         }
