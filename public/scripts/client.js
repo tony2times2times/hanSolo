@@ -156,6 +156,14 @@ togetherApp.controller('logInController', ["$scope", "$http", "flix",
             console.log('Name: ' + profile.getName());
             console.log('Image URL: ' + profile.getImageUrl());
             console.log('Email: ' + profile.getEmail());
+            $http({
+                method: 'GET',
+                url: '/auth'
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                console.log('error', error);
+            });
             flix.loggedIn = true;
             $scope.loggedIn = flix.loggedIn;
             $scope.$apply();

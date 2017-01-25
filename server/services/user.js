@@ -32,6 +32,7 @@ var UserService = {
         user.google.token = token;
         user.google.name = name;
         user.google.email = email;
+        user.favorites = [];
         user.save(function(err) {
             if (err) {
                 return callback(err, null);

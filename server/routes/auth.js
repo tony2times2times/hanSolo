@@ -14,11 +14,12 @@ router.get('/google', passport.authenticate('google',
 
 router.get('/google/callback', passport.authenticate('google',
   {
-    successRedirect: '/private', // take them to their private data
+    successRedirect: '/', // take them to their private data
     failureRedirect: '/', // take them back home to try again
   })
 );
 
+///////////////// Help me Dev you're my only hope ///////////////////////////////
 router.get('/', function (req, res) {
   if (req.isAuthenticated()) {
     res.json({ status: true, name: req.user.googleName });
