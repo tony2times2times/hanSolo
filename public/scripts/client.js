@@ -169,13 +169,13 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
         };
 
         $scope.watchTogetherEmail = function(index) {
-          console.log($scope.flix[index]);
-          
-          console.log('sending email to: ' + $scope.watchWith);
+          //console.log($scope.flix[index]);
+
+          //console.log('sending email to: ' + $scope.watchWith);
             $http({
                 method: 'PUT',
                 url: '/auth/watchTogether',
-                data: $scope.flix[index]
+                data: 'stringy'
             }).then(function successCallback(response) {
                 console.log(response);
             }, function errorCallback(error) {

@@ -111,19 +111,16 @@ function emailFriend(req, res) {
       transporter.sendMail(mailOptions, function(error, info) {
           if (error) {
               console.log(error);
-              res.json({
-                  yo: 'error'
-              });
           } else {
               console.log('Message sent: ' + info.response);
-              res.json({
-                  yo: info.response
-              });
           }
       });
     });
-    j.cancel();
-
+    j();
+    //j.cancel();
+    res.json({
+        status: "your message will be send in 30 minutes"
+    });
 }
 
 //export module
