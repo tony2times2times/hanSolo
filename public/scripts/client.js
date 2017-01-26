@@ -22,10 +22,6 @@ togetherApp.factory("flix", function() {
     flix.loggedIn = false;
     flix.found = [];
     flix.favorites = [];
-    flix.favorite = function(index) {
-        flix.found[index].favorite = true;
-        flix.favorites.push(flix.found[index]);
-    };
     return flix;
 });
 
@@ -43,7 +39,31 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
             flix.found = $scope.flix;
         };
         $scope.favorite = function(index) {
-            flix.favorite(index);
+            flix.found[index].favorite = true;
+            flix.favorites.push(flix.found[index]);
+            $http({
+                method: 'PUT',
+                url: '/auth/favorites',
+                data: flix.favorites
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                console.log('error', error);
+            });
+            $scope.found = flix.found;
+        };
+
+        $scope.unfavorite = function(index) {
+            flix.found[index].favorite = false;
+            /*search threw the favorites array and find where the title and year
+            both match and delete that movie.*/
+                for (var j = 0; j < flix.favorites.length; j++) {
+                    if ($scope.flix[index].title === flix.favorites[j].title &&
+                        $scope.flix[index].release_date === flix.favorites[j].release_date) {
+                        flix.favorites.splice(j, 1);
+                        break;
+                    }
+                }
             $http({
                 method: 'PUT',
                 url: '/auth/favorites',
@@ -117,6 +137,13 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                 $scope.flix[i].netflix = false;
                 $scope.flix[i].info = false;
                 $scope.flix[i].favorite = false;
+                //check each movie to see if it is in favorites array
+                for (var j = 0; j < flix.favorites.length; j++) {
+                    if ($scope.flix[i].title === flix.favorites[j].title &&
+                        $scope.flix[i].release_date === flix.favorites[j].release_date) {
+                        $scope.flix[i].favorite = true;
+                    }
+                }
                 //search the netflix api to see if movie is avalible
                 var title = $scope.flix[i].title;
                 var year = ($scope.flix[i].release_date.split(/-/))[0];
@@ -142,7 +169,7 @@ togetherApp.controller('favoritesController', ["$scope", "$http", "flix",
         console.log('favoritesController standing by.');
         $scope.favorites = flix.favorites;
         $scope.favorite = function(index) {
-            flix.favorite(index);
+            flix.favorites.push(flix.favorites[index]);
             $http({
                 method: 'PUT',
                 url: '/auth/favorites',
@@ -152,7 +179,23 @@ togetherApp.controller('favoritesController', ["$scope", "$http", "flix",
             }, function errorCallback(error) {
                 console.log('error', error);
             });
+            $scope.favorites = flix.favorites;
         };
+
+        $scope.unfavorite = function(index) {
+            flix.favorites.splice(flix.favorites[index], 1);
+            $http({
+                method: 'PUT',
+                url: '/auth/favorites',
+                data: flix.favorites
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                console.log('error', error);
+            });
+            $scope.favorites = flix.favorites;
+        };
+
         $scope.showInfo = function(index) {
             for (var i = 0; i < $scope.favorites.length; i++) {
                 $scope.favorites[i].info = false;

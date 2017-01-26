@@ -23,7 +23,7 @@
                     </a>
                     <img ng-if='flick.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
                     <br>
-                    <img ng-if='flick.favorite' ng-click='unFavorite($index)' src="../images/loveHeart.png" alt="">
+                    <img ng-if='flick.favorite' ng-click='unfavorite($index)' src="../images/loveHeart.png" alt="">
                     </div>
                     <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.info === false" />
           </div>
