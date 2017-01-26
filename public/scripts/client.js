@@ -121,14 +121,13 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
 
         $scope.favorite = function(index) {
             $scope.flix[index].favorite = true;
-            console.log('user has favorited ' + index);
+            console.log('sending data: ' +  $scope.flix[index]);
             flix.favorites.push($scope.flix[index]);
             $scope.favorites = flix.favorites;
-            console.log("scope favorites" + $scope.favorites);
             $http({
-                method: 'UPDATE',
+                method: 'PUT',
                 url: '/auth/favorites',
-                data: $scope.flix[index]
+                data: flix.favorites
             }).then(function successCallback(response) {
                 console.log(response);
             }, function errorCallback(error) {
@@ -170,7 +169,7 @@ togetherApp.controller('logInController', ["$scope", "$http", "flix",
                 console.log(response);
                 var auth = response.data.status;
                 var favorites = response.data.favorites;
-                if (auth) {
+                if (response.data.status) {
                     flix.loggedIn = true;
                     flix.favorites = favorites;
                 } else {

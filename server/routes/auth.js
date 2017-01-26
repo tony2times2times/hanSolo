@@ -1,10 +1,14 @@
 var express = require('express');
+var app = express();
+var express = require('express');
 var router = express.Router();
 var passport = require('../config/passport.js');
 //var mongoose = require('mongoose');
 //var User = require('../models/user.js');
 var UserService = require('../services/user.js');
 var util = require('util');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 router.get('/google', passport.authenticate('google', {
     scope: ['openid', 'email'],
@@ -42,10 +46,10 @@ router.post('/', function(req, res) {
 });
 
 //update user favorites
-router.update('/favorites', function(req, res) {
+router.put('/favorites', function(req, res) {
     if (req.isAuthenticated()) {
         var userId = req.user.id;
-        var favorites = req.body.data;
+        var favorites = req.body;
         console.log('save to DB: ' + favorites);
         UserService.updateFavoritesById(userId, favorites, function(err, user) {
             if (err) {
