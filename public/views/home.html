@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <button ng-click = 'watchTogetherEmail()' name="button">EMAIL</button>
   <form ng-submit='search()' >
     <div class="search">
   <input ng-model="title" type="text" placeholder="Title">
@@ -6,7 +7,6 @@
   <input type="radio" name="mediaType" value="movie" checked>
   <label for="tv">TV Show</label>
   <input type="radio" name="mediaType" value="tv">
-  <button type="button" name="search" ng-click="search()"> Search </button>
   </form>
   </div>
   <div class="container-fluid">
@@ -18,14 +18,19 @@
                       <br>
                       language : {{flick.original_language}}
                       <br>
-                    <a href='{{flick.netflixLink}}' target="_blank">
-                      <img ng-if ="flick.netflix" src="../images/netflixlogo.png" alt="avalible on netflix" >
-                    </a>
-                    <img ng-if='flick.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
-                    <br>
-                    <img ng-if='flick.favorite' ng-click='unfavorite($index)' src="../images/loveHeart.png" alt="">
-                    </div>
-                    <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.info === false" />
+                      <a href='{{flick.netflixLink}}' target="_blank">
+                        <img ng-if ="flick.netflix" src="../images/netflixlogo.png" alt="avalible on netflix" >
+                      </a>
+                      <img ng-if='flick.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
+                      <br>
+                      <img ng-if='flick.favorite' ng-click='unfavorite($index)' src="../images/loveHeart.png" alt="">
+                      <form ng-submit='watchTogetherEmail($index)' class="emailIn">
+                        <label for="watchWith">Watch this movie with</label>
+                        <input type="email" class="form-control" id="watchWith$index" aria-describedby="emailHelp" placeholder="Enter email">
+                      </form>
+                        </div>
+                      <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.info === false" />
+
           </div>
 
 </div>

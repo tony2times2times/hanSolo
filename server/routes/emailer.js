@@ -1,14 +1,12 @@
 /* eslint-env es6 */
 
-'use strict';
 
 // This example is for testing Gmail actions with a Google Apps account
 // https://developers.google.com/gmail/markup/overview
 
 // see https://cloudup.com/chLuRjJy61U for example output of this script
 
-const nodemailer = require('nodemailer');
-const nodemailerDkim = require('nodemailer-dkim');
+var nodemailer = require('nodemailer');
 
 // Gmail Actions are enabled by default for messages sent by the same user
 // so this test script uses the same from: and to: addresses

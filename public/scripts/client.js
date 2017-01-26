@@ -2,6 +2,7 @@ console.log("JS");
 
 var togetherApp = angular.module('togetherApp', ["ngRoute"]);
 
+//handle angular routing within the application
 togetherApp.config(["$routeProvider", function($routeProvider) {
     $routeProvider
         .when("/home", {
@@ -17,6 +18,7 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
         });
 }]);
 
+//define the flix factory.
 togetherApp.factory("flix", function() {
     var flix = {};
     flix.loggedIn = false;
@@ -28,9 +30,13 @@ togetherApp.factory("flix", function() {
 togetherApp.controller('homeController', ["$scope", "$http", "flix",
     function($scope, $http, flix) {
         console.log("homeController standing by.");
-        $scope.flix = [];
+        //controller variables -- sourced in from flix controller
+        $scope.flix = flix.found;
         $scope.favorites = flix.favorites;
+
+        //sets display/info for all flix on the DOM
         $scope.showInfo = function(index) {
+            //default
             for (var i = 0; i < $scope.flix.length; i++) {
                 $scope.flix[i].info = false;
             }
@@ -57,13 +63,13 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
             flix.found[index].favorite = false;
             /*search threw the favorites array and find where the title and year
             both match and delete that movie.*/
-                for (var j = 0; j < flix.favorites.length; j++) {
-                    if ($scope.flix[index].title === flix.favorites[j].title &&
-                        $scope.flix[index].release_date === flix.favorites[j].release_date) {
-                        flix.favorites.splice(j, 1);
-                        break;
-                    }
+            for (var j = 0; j < flix.favorites.length; j++) {
+                if ($scope.flix[index].title === flix.favorites[j].title &&
+                    $scope.flix[index].release_date === flix.favorites[j].release_date) {
+                    flix.favorites.splice(j, 1);
+                    break;
                 }
+            }
             $http({
                 method: 'PUT',
                 url: '/auth/favorites',
@@ -160,6 +166,22 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
             //update the factory with found flix and thier properties
             flix.found = $scope.flix;
             console.log('flix found', flix.found);
+        };
+
+        $scope.watchTogetherEmail = function(index) {
+          console.log($scope.flix[index]);
+          
+          console.log('sending email to: ' + $scope.watchWith);
+            $http({
+                method: 'PUT',
+                url: '/auth/watchTogether',
+                data: $scope.flix[index]
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                console.log('error', error);
+            });
+
         };
     }
 ]);
