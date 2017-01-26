@@ -1,25 +1,20 @@
 <div class="container-fluid">
-
-  </div>
-  <div class="container-fluid">
-            <div class='flick-display col-md-4' ng-mouseover='showInfo($index)' ng-repeat='flick in flix' >
-                    <div class="info " ng-if ="flick.info">
-                      Name : {{flick.title}}
-                      <br>
-                      date : {{flick.release_date}}
-                      <br>
-                      language : {{flick.original_language}}
-                      <br>
-                    <a href='{{flick.netflixLink}}' target="_blank">
-                      <img ng-if ="flick.netflix" src="../images/netflixlogo.png" alt="avalible on netflix" >
-                    </a>
-                    <img ng-if='flick.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
+          <div class='flick-display col-md-4' ng-mouseover='showInfo($index)' ng-repeat='fav in favorites' >
+                  <div class="info " ng-if ="fav.info">
+                    Name : {{fav.title}}
                     <br>
-                    <img ng-if='flick.favorite' ng-click='unFavorite($index)' src="../images/loveHeart.png" alt="">
-                    </div>
-                    <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.info === false" />
-          </div>
-
-</div>
+                    date : {{fav.release_date}}
+                    <br>
+                    language : {{fav.original_language}}
+                    <br>
+                  <a href='{{fav.netflixLink}}' target="_blank">
+                    <img ng-if ="fav.netflix" src="../images/netflixlogo.png" alt="avalible on netflix" >
+                  </a>
+                  <img ng-if='fav.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
+                  <br>
+                  <img ng-if='fav.favorite' ng-click='unFavorite($index)' src="../images/loveHeart.png" alt="">
+                  </div>
+                  <img class='poster' ng-src="{{fav.poster}}" alt="poster" ng-if ="fav.info === false" />
+        </div>
 
 </div>

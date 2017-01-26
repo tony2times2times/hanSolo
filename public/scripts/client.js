@@ -10,7 +10,7 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
         })
         .when("/favorites", {
             templateUrl: '../views/favorites.html',
-            controller: 'homeController'
+            controller: 'favoritesController'
         })
         .otherwise({
             redirectTo: "/home"
@@ -18,12 +18,14 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
 }]);
 
 togetherApp.factory("flix", function() {
-    var flix = {
-        loggedIn: false,
-        found: [],
-        favorites: []
+    var flix = {};
+    flix.loggedIn = false;
+    flix.found = [];
+    flix.favorites = [];
+    flix.favorite = function(index) {
+        flix.found[index].favorite = true;
+        flix.favorites.push(flix.found[index]);
     };
-
     return flix;
 });
 
@@ -32,6 +34,27 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
         console.log("homeController standing by.");
         $scope.flix = [];
         $scope.favorites = flix.favorites;
+        $scope.showInfo = function(index) {
+            for (var i = 0; i < $scope.flix.length; i++) {
+                $scope.flix[i].info = false;
+            }
+            //change view for selected movie hide the poster show thier info
+            $scope.flix[index].info = true;
+            flix.found = $scope.flix;
+        };
+        $scope.favorite = function(index) {
+            flix.favorite(index);
+            $http({
+                method: 'PUT',
+                url: '/auth/favorites',
+                data: flix.favorites
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                console.log('error', error);
+            });
+            $scope.favorites = flix.favorites;
+        };
 
         $scope.netflixSearch = function(title, year, index) {
             $http({
@@ -107,23 +130,19 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                         $scope.flix[i].poster_path);
                 }
             }
+            //update the factory with found flix and thier properties
+            flix.found = $scope.flix;
+            console.log('flix found', flix.found);
         };
+    }
+]);
 
-        //change view for selected movie
-        $scope.showInfo = function(index) {
-            //reset all movies to display only thier poster
-            for (var i = 0; i < $scope.flix.length; i++) {
-                $scope.flix[i].info = false;
-            }
-            //change view for selected movie hide the poster show thier info
-            $scope.flix[index].info = true;
-        };
-
+togetherApp.controller('favoritesController', ["$scope", "$http", "flix",
+    function($scope, $http, flix) {
+        console.log('favoritesController standing by.');
+        $scope.favorites = flix.favorites;
         $scope.favorite = function(index) {
-            $scope.flix[index].favorite = true;
-            console.log('sending data: ' +  $scope.flix[index]);
-            flix.favorites.push($scope.flix[index]);
-            $scope.favorites = flix.favorites;
+            flix.favorite(index);
             $http({
                 method: 'PUT',
                 url: '/auth/favorites',
@@ -134,13 +153,14 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                 console.log('error', error);
             });
         };
-    }
-]);
-
-togetherApp.controller('favoritesController', ["$scope", "$http", "flix",
-    function($scope, $http, flix) {
-        console.log('favoritesController standing by.');
-        $scope.flix = flix.favorites;
+        $scope.showInfo = function(index) {
+            for (var i = 0; i < $scope.favorites.length; i++) {
+                $scope.favorites[i].info = false;
+            }
+            //change view for selected movie hide the poster show thier info
+            $scope.favorites[index].info = true;
+            flix.favorites = $scope.favorites;
+        };
     }
 ]);
 
