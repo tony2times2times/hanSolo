@@ -41,14 +41,18 @@ togetherApp.controller('homeController', ["$scope", "$location", "$http", "flix"
 
         //sets display/info for all flix on the DOM
         $scope.showInfo = function(index) {
-            //default
+            // if ($scope.flix[index].info === true) {
+            //     $scope.flix[index].info = false;
+            // } else {
             for (var i = 0; i < $scope.flix.length; i++) {
                 $scope.flix[i].info = false;
             }
             //change view for selected movie hide the poster show thier info
             $scope.flix[index].info = true;
             flix.found = $scope.flix;
+            //}
         };
+
         $scope.favorite = function(index) {
             flix.found[index].favorite = true;
             flix.favorites.push(flix.found[index]);
@@ -173,26 +177,10 @@ togetherApp.controller('homeController', ["$scope", "$location", "$http", "flix"
             console.log('flix found', flix.found);
         };
 
-        $scope.watchTogetherEmail = function(index) {
-          //console.log($scope.flix[index]);
-
-          //console.log('sending email to: ' + $scope.watchWith);
-            $http({
-                method: 'PUT',
-                url: '/auth/watchTogether',
-                data: 'stringy'
-            }).then(function successCallback(response) {
-                console.log(response);
-            }, function errorCallback(error) {
-                console.log('error', error);
-            });
-
-        };
-
-        $scope.selectFlick = function(index){
-          console.log("changing to view flick");
-          flix.selectedFlick = $scope.flix[index];
-          $location.path('/selected');
+        $scope.selectFlick = function(index) {
+            console.log("changing to view flick");
+            flix.selectedFlick = $scope.flix[index];
+            $location.path('/selected');
         };
     }
 ]);
@@ -230,12 +218,16 @@ togetherApp.controller('favoritesController', ["$scope", "$http", "flix",
         };
 
         $scope.showInfo = function(index) {
+            // if ($scope.favorites[index].info === true) {
+            //     $scope.favorites[index].info = false;
+            // } else {
             for (var i = 0; i < $scope.favorites.length; i++) {
                 $scope.favorites[i].info = false;
             }
             //change view for selected movie hide the poster show thier info
             $scope.favorites[index].info = true;
             flix.favorites = $scope.favorites;
+            //  }
         };
     }
 ]);
@@ -285,6 +277,22 @@ togetherApp.controller('selectedController', ["$scope", "$http", "flix",
     function($scope, $http, flix) {
         console.log('selectedController standing by.');
         $scope.selectedFlick = flix.selectedFlick;
+
+        $scope.watchTogetherEmail = function() {
+            var movieNight = {};
+            movieNight.partner = $scope.watchWith;
+            movieNight.flick = $scope.selectedFlick;
+            $http({
+                method: 'PUT',
+                url: '/auth/watchTogether',
+                data: movieNight
+            }).then(function successCallback(response) {
+                console.log(response);
+            }, function errorCallback(error) {
+                console.log('error', error);
+            });
+
+        };
 
     }
 ]);

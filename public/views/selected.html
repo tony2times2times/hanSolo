@@ -6,10 +6,15 @@
       <br>
       <br>
       <br>
+      <br>
       <p class='selected-text' >{{selectedFlick.overview}}</p>
-      <form ng-submit='watchTogetherEmail($index)' class="emailIn">
-        <label for="watchWith">Watch this movie with</label>
-        <input class="emailIn" type="email" class="form-control" id="watchWith$index" aria-describedby="emailHelp" placeholder="Enter email">
+      <br>
+      <br>
+      <form ng-submit='watchTogetherEmail()' class="emailIn">
+        <label class="emailIn" for="watchWith">Watch this movie with...</label>
+        <br>
+        <input class="emailIn" type="email" class="form-control" ng-model="watchWith" aria-describedby="emailHelp" placeholder="Enter email"></input>
       </form>
+      <button class="emailIn" ng-click = 'watchTogetherEmail()' type="submit" class="btn btn-info" value="Submit Button">Submit</button>
     </div>
 </div>

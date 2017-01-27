@@ -18,7 +18,7 @@
       <a ng-if='!loggedIn' href="/auth/google" class="btn btn-danger navbar-left"> Google</a>
       <a class='navbar-left' ng-if='loggedIn' href="#" ng-click="signOut()">Sign out</a>
       <ul class = "nav navbar-nav navbar-right">
-        <li><a href="#!/home">HOME</a></li>
+        <li><a href="#!/home">SEARCH</a></li>
         <li><a href="#!/favorites">FAVORITES</a></li>
       </ul>
     </nav>
@@ -27,7 +27,7 @@
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <a ng-if='loggedIn' href="#" ng-click="signOut()">Sign out</a>
     </div> -->
-      <img src="../images/togetherflix.png" alt="" class='logo'>
+      <a href="#!/home"><img src="../images/togetherflix.png" alt="" class='logo'></a>
       <main ng-view ></main>
       </body>
   </html>

@@ -10,7 +10,7 @@ var UserService = require('../services/user.js');
 
 // serialize the user onto the session
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.id, user.name);
 });
 
 // deserialize the user from the session and provide user object
@@ -42,7 +42,7 @@ passport.use('google', new GoogleStrategy({
         }
         // user does not exist in our database, let's create one!
         console.log('user not found: ' + user);
-        UserService.createGoogleUser(profile.id, token, profile.displayName,
+        UserService.createGoogleUser(profile.id, token, profile.given_name,
             profile.emails[0].value, /* we take first email address */
             function(err, user) {
                 if (err) {

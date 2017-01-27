@@ -7,6 +7,7 @@ var UserService = require('../services/user.js');
 var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 var schedule = require('node-schedule');
+var now = new Date();
 
 //Parses the bodys
 app.use(bodyParser.json());
@@ -84,14 +85,16 @@ function emailFriend(req, res) {
 // a = 'varname';
 // str = a+' = '+'123';
 // eval(str)
-
+    var sender = req.user.email;
+    var partner = req.body.partner;
+    var flick = req.body.flick;
     var text = 'Hello world from TogetherFlix!';
     var mailOptions = {
-        from: 'officialtogetherflix@gmail.com', // sender address
-        to: 'tonyperaza86@gmail.com', // list of receivers
-        subject: 'Great Success!', // Subject line
-        //text: text //, // plaintext body
-        html: '<b>Hello world from together flix! ✔</b>' // You can choose to send an HTML body instead
+        from: 'officialtogetherflix@gmail.com',
+        to: partner,
+        subject: 'Watch a movie with '+ sender,
+        html: '<b>' + sender +' would like to watch a movie with you together flix! ✔</b>'+
+        '<img src="' + flick.poster + '" alt="' + flick.title + '">'
     };
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -101,8 +104,8 @@ function emailFriend(req, res) {
         }
     });
 
-    var startTime = new Date(Date.now() + 1800000);
-    var endTime = new Date(now.getTime() + 1000);
+    var startTime = new Date(Date.now() + 18000); //1800000
+    var endTime = new Date(startTime.getTime() + 1000);
     var j = schedule.scheduleJob({
         start: startTime,
         end: endTime,
@@ -116,7 +119,6 @@ function emailFriend(req, res) {
           }
       });
     });
-    j();
     //j.cancel();
     res.json({
         status: "your message will be send in 30 minutes"

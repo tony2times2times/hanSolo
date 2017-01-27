@@ -10,7 +10,8 @@
   </div>
   <div class="container-fluid">
             <div class='col-md-4 flick-display' ng-mouseover='showInfo($index)' ng-repeat='flick in flix' >
-                    <div class="info " ng-if ="flick.info">
+
+                    <div class="info" ng-if ="flick.info">
                       Name : {{flick.title}}
                       <br>
                       date : {{flick.release_date}}
@@ -20,9 +21,9 @@
                       <a href='{{flick.netflixLink}}' target="_blank">
                         <img ng-if ="flick.netflix" src="../images/netflixlogo.png" alt="avalible on netflix" >
                       </a>
-                      <img ng-if='flick.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
+                      <img  ng-if='flick.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
                       <br>
-                      <img ng-if='flick.favorite' ng-click='unfavorite($index)' src="../images/loveHeart.png" alt="">
+                      <img  ng-if='flick.favorite' ng-click='unfavorite($index)' src="../images/loveHeart.png" alt="">
                       <button ng-click='selectFlick($index)' type="button" name="select">More Info</button>
                         </div>
                       <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.info === false" />
