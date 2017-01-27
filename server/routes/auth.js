@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 var schedule = require('node-schedule');
 var now = new Date();
+var email = require('../utils/email.js');
 
 //Parses the bodys
 app.use(bodyParser.json());
@@ -85,17 +86,17 @@ function emailFriend(req, res) {
 // a = 'varname';
 // str = a+' = '+'123';
 // eval(str)
-    var sender = req.user.email;
+    var sender = 'Tony Peraza';
     var partner = req.body.partner;
-    var flick = req.body.flick;
+    var poster = req.body.flick.poster;
+    var title = req.body.flick.title;
     var text = 'Hello world from TogetherFlix!';
     var mailOptions = {
         from: 'officialtogetherflix@gmail.com',
         to: partner,
         subject: 'Watch a movie with '+ sender,
-        html: '<b>' + sender +' would like to watch a movie with you together flix! ✔</b>'+
-        '<img src="' + flick.poster + '" alt="' + flick.title + '">'
-    };
+        html: email.watchTogether(sender, partner, poster, title)
+      };
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
