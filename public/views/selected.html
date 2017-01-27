@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="selected-info">
+      <img class='selectedPoster'  ng-src="{{selectedFlick.poster}}" alt="movie poster">
+      <p>{{selectedFlick.overview}}</p>
+      <form ng-submit='watchTogetherEmail($index)' class="emailIn">
+        <label for="watchWith">Watch this movie with</label>
+        <input type="email" class="form-control" id="watchWith$index" aria-describedby="emailHelp" placeholder="Enter email">
+      </form>
+    </div>
+</div>

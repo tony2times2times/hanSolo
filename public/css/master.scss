@@ -33,35 +33,22 @@ li{
     width: 300px;
 }
 
-.flick-display {
-    width: 225px;
-    height: 339px;
-    margin: 25px;
-    padding: 0px;
-    border: 0px;
-    display: inline;
-    /*position: static;
-    */
-}
 
 .poster {
-  display: block;
+  display: inline;
   max-height: 100%;
   max-width: 100%;
     margin: 0px;
-    border: 1px;
+    border: 0px;
     padding: 0px;
-    border-color: grey;
+    float: left;
 }
 
 .info {
   display: block;
   max-height: 100%;
   max-width: 100%;
-    margin: 0px;
-    border: 1px;
-    padding: 0px;
-    border-color: fixed;
+
 }
 
 .logIn{
@@ -74,3 +61,27 @@ li{
   float: left;
   padding: 20px;
 }
+
+.flick-display {
+    width: 225px;
+    height: 339px;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.selected-info{
+  display: inline;
+  max-height: 500px;
+}
+.selectedPoster{
+  display: inline;
+  max-height: 100%;
+  max-width: 100%;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    float: left;
+}
+.selected-text

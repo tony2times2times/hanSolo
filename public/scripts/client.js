@@ -13,6 +13,10 @@ togetherApp.config(["$routeProvider", function($routeProvider) {
             templateUrl: '../views/favorites.html',
             controller: 'favoritesController'
         })
+        .when("/selected", {
+            templateUrl: '../views/selected.html',
+            controller: 'selectedController'
+        })
         .otherwise({
             redirectTo: "/home"
         });
@@ -24,11 +28,12 @@ togetherApp.factory("flix", function() {
     flix.loggedIn = false;
     flix.found = [];
     flix.favorites = [];
+    flix.selectedFlick = {};
     return flix;
 });
 
-togetherApp.controller('homeController', ["$scope", "$http", "flix",
-    function($scope, $http, flix) {
+togetherApp.controller('homeController', ["$scope", "$location", "$http", "flix",
+    function($scope, $location, $http, flix) {
         console.log("homeController standing by.");
         //controller variables -- sourced in from flix controller
         $scope.flix = flix.found;
@@ -159,7 +164,7 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                     $scope.flix[i].poster = '../images/black.jpg';
                 } else {
                     //this creates a full link to display the poster to the DOM
-                    $scope.flix[i].poster = ('https://image.tmdb.org/t/p/w500' +
+                    $scope.flix[i].poster = ('https://image.tmdb.org/t/p/w1280' +
                         $scope.flix[i].poster_path);
                 }
             }
@@ -182,6 +187,12 @@ togetherApp.controller('homeController', ["$scope", "$http", "flix",
                 console.log('error', error);
             });
 
+        };
+
+        $scope.selectFlick = function(index){
+          console.log("changing to view flick");
+          flix.selectedFlick = $scope.flix[index];
+          $location.path('/selected');
         };
     }
 ]);
@@ -267,5 +278,13 @@ togetherApp.controller('logInController', ["$scope", "$http", "flix",
             $scope.$apply();
         }
         window.onSignIn = onSignIn;
+    }
+]);
+
+togetherApp.controller('selectedController', ["$scope", "$http", "flix",
+    function($scope, $http, flix) {
+        console.log('selectedController standing by.');
+        $scope.selectedFlick = flix.selectedFlick;
+
     }
 ]);

@@ -10,7 +10,7 @@
   </form>
   </div>
   <div class="container-fluid">
-            <div class='flick-display col-md-4' ng-mouseover='showInfo($index)' ng-repeat='flick in flix' >
+            <div class='col-md-4 flick-display' ng-mouseover='showInfo($index)' ng-repeat='flick in flix' >
                     <div class="info " ng-if ="flick.info">
                       Name : {{flick.title}}
                       <br>
@@ -24,10 +24,7 @@
                       <img ng-if='flick.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
                       <br>
                       <img ng-if='flick.favorite' ng-click='unfavorite($index)' src="../images/loveHeart.png" alt="">
-                      <form ng-submit='watchTogetherEmail($index)' class="emailIn">
-                        <label for="watchWith">Watch this movie with</label>
-                        <input type="email" class="form-control" id="watchWith$index" aria-describedby="emailHelp" placeholder="Enter email">
-                      </form>
+                      <button ng-click='selectFlick($index)' type="button" name="select">More Info</button>
                         </div>
                       <img class='poster' ng-src="{{flick.poster}}" alt="poster" ng-if ="flick.info === false" />
 
