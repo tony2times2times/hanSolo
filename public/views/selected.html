@@ -1,17 +1,17 @@
 <div class="container-fluid">
   <div class="selected-info">
-      <img class='selectedPoster'  ng-src="{{selectedFlick.poster}}" alt="movie poster">
-      <br>
-      <br>
-      <br>
+    <img class=' col-sm-4'  ng-src="{{selectedFlick.poster}}" alt="movie poster">
+    <br>
+    <br>
+    <br>
+    <div class="col-sm-4">
       <p class='selected-text' >{{selectedFlick.overview}}</p>
-      <br>
-      <br>
       <form ng-submit='watchTogetherEmail()' class="emailIn">
-        <label class="emailIn" for="watchWith">Watch this movie with...</label>
-        <br>
-        <input class="emailIn" type="email" class="form-control" ng-model="watchWith" aria-describedby="emailHelp" placeholder="Enter email"></input>
+        <label class="" for="watchWith">Watch this movie with...</label>
+        <input class="" type="email" class="form-control" ng-model="watchWith" aria-describedby="emailHelp" placeholder="Enter email"></input>
+        <div vc-recaptcha key="'6Ld4gxMUAAAAAASHnclfSWBIZK0ZdLCxorB4Y_vr'"></div>
       </form>
-      <button class="emailIn" ng-click = 'watchTogetherEmail()' type="submit" class="btn btn-info" value="Submit Button">Submit</button>
+      <button class="" ng-click = 'watchTogetherEmail()' type="submit" class="btn btn-info" value="Submit Button">Submit</button>
     </div>
+  </div>
 </div>

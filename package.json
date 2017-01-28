@@ -20,6 +20,7 @@
   "homepage": "https://github.com/PrimeAcademy/Shelf-FullStackAuthPeerAssignment#readme",
   "dependencies": {
     "angular": "^1.6.1",
+    "angular-recaptcha": "^4.0.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",

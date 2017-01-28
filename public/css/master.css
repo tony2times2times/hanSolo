@@ -1,0 +1,102 @@
+body {
+    text-align: center;
+}
+
+input.radio,
+input[type=radio] {
+    clear: none;
+    margin: 2px 0 0 2px;
+    display: inline;
+}
+
+.search {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#input_text {
+    width: 300px;
+}
+
+.poster {
+    display: inline;
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    float: left;
+    border: 10px;
+}
+
+.info {
+    display: block;
+    height: 90%;
+    width: 100%;
+    padding: 5%;
+    outline: 2px solid #ccc;
+    outline-offset: -1px;
+    -moz-outline-radius: 10px;
+    -webkit-outline-radius: 10px;
+}
+
+.logIn {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: left;
+    display: inline;
+    float: left;
+    padding: 20px;
+}
+
+.flick-display {
+    width: 225px;
+    height: 339px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.selected-info {
+    display: inline;
+    max-height: 500px;
+}
+
+.selectedPoster {
+    display: block;
+    max-width: 35%;
+    margin: 0;
+    border: 0;
+    padding: 0% 15% 0% 0% ;
+    float: left;
+}
+
+.selected-text {
+  position: static;
+  padding: 0% 30% 0% 0% ;
+}
+
+.g-recaptcha {
+        display: inline-block;
+    }
+
+.emailIn{
+  display: inline;
+  width: 250px;
+  text-align: center;
+  margin-right: 40%;
+}
+
+.logo{
+  width: 300px;
+  height: auto;
+}
+
+.inform{
+  float: right;
+    display: block;
+}

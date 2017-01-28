@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="google-signin-client_id" content="642536861020-70215a1593j5kvj1s15oukftjt7n5dgu.apps.googleusercontent.com">
-    <title>TogetherFlix</title>
-    <link rel="stylesheet" href="../vendors/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/master.min.css">
-    <script src="https://apis.google.com/js/platform.js" async></script>
-    <script src="../vendors/angular.js" charset="utf-8"></script>
-    <script src="../vendors/angular-route.min.js" charset="utf-8"></script>
-    <script src="../scripts/client.js" charset="utf-8"></script>
-  </head>
-  <body ng-app="togetherApp">
-
-    <nav ng-controller='logInController' class = "navbar navbar-default" role = "navigation">
-      <div class="g-signin2 navbar-left" data-onsuccess="onSignIn"></div>
-      <a ng-if='!loggedIn' href="/auth/google" class="btn btn-danger navbar-left"> Google</a>
-      <a class='navbar-left' ng-if='loggedIn' href="#" ng-click="signOut()">Sign out</a>
-      <ul class = "nav navbar-nav navbar-right">
-        <li><a href="#!/home">SEARCH</a></li>
-        <li><a href="#!/favorites">FAVORITES</a></li>
-      </ul>
-    </nav>
-
-    <!-- <div class="container-fluid logIn" ng-controller='logInController'>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a ng-if='loggedIn' href="#" ng-click="signOut()">Sign out</a>
-    </div> -->
-      <a href="#!/home"><img src="../images/togetherflix.png" alt="" class='logo'></a>
-      <main ng-view ></main>
-      </body>
-  </html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google-signin-client_id" content="642536861020-70215a1593j5kvj1s15oukftjt7n5dgu.apps.googleusercontent.com">
+  <title>TogetherFlix</title>
+  <link rel="stylesheet" href="../vendors/bootstrap.min.css">
+  <link rel="stylesheet" href="../vendors/sweetalert-master/dist/sweetalert.css">
+  <link rel="stylesheet" href="../css/master.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../vendors/sweetalert-master/dist/sweetalert.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async></script>
+  <script src="../vendors/angular.js" charset="utf-8"></script>
+  <script src="../vendors/angular-recaptcha/release/angular-recaptcha.js" charset="utf-8"></script>
+  <script src="../vendors/angular-route.min.js" charset="utf-8"></script>
+  <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+  <script src="../scripts/client.js" charset="utf-8"></script>
+</head>
+<body ng-app="togetherApp">
+  <nav ng-controller='logInController' class="navbar navbar-default" role="navigation">
+    <div class="g-signin2 navbar-left" data-onsuccess="onSignIn"></div>
+    <a ng-if='!loggedIn' href="/auth/google" class="btn btn-danger navbar-left"> Google</a>
+    <a class='navbar-left' ng-if='loggedIn' href="#" ng-click="signOut()">Sign out</a>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#!/home">SEARCH</a></li>
+      <li><a href="#!/favorites">FAVORITES</a></li>
+    </ul>
+  </nav>
+  <a href="#!/home"><img src="../images/togetherflix.png" alt="" class='logo'></a>
+  <main ng-view></main>
+</body>
+</html>
