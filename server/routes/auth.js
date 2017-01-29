@@ -22,8 +22,8 @@ router.get('/google', passport.authenticate('google', {
 // callbackUrl in {@link config/auth}.
 
 router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: '/', // take them to their private data
-    failureRedirect: '/', // take them back home to try again
+    successRedirect: '/',
+    failureRedirect: '/',
 }));
 
 ///////////////// Help me Dev you're my only hope ///////////////////////////////

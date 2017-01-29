@@ -61,7 +61,7 @@ MongoDB.once('open', function () {
 
 //listen on port 2305
 app.listen((process.env.PORT || '2305'), function(){
-  console.log('listening on 2305');
+  console.log("Go ahead I'm listening.");
 });
 
 
