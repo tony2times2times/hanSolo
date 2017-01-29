@@ -1,34 +1,46 @@
 <div class="container-fluid">
   <div class="selected-info">
     <img class=' col-sm-4'  ng-src="{{selectedFlick.poster}}" alt="movie poster">
-    <br>
-    <br>
-    <br>
     <div class="col-sm-4">
+      <h1>{{selectedFlick.title}}</h1>
+      <br>
       <p class='selected-text' >{{selectedFlick.overview}}</p>
-      <form ng-submit='watchTogetherEmail()' class="emailIn"  >
-        <label class="" for="watchWith">Watch this movie with...</label>
+      <div class="rating" ng-repeat="star in stars track by $index">
+        <img class="rating" src="{{star}}" alt="star">
+      </div>
+
+    </div>
+    <div class="col-sm-4 friends-list">
+      <h2>WATCH WITH...</h2>
+      <br>
+      <img width="200px" src="../images/tom.jpg" alt="pic of Tom">
+      <br>
+      <br>
+      <br>
+      <form  ng-submit='watchTogetherEmail()' class="emailIn"  >
+        <h5 class="" for="watchWith">Watch this movie with someone else?</h5>
+        <div
+        class="emailIn"
+        vc-recaptcha
+        theme="'light'"
+        key="model.key"
+        on-create="setWidgetId(widgetId)"
+        on-success="setResponse(response)"
+        on-expire="cbExpiration()"
+        ></div>
         <input
-        class="form-control"
+        class="emailIn"
         type="email"
-        class="form-control"
         ng-model="watchWith"
-        aria-describedby="emailFriend"
-        placeholder="Enter email">
+        ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+        required>
       </input>
-      <div
-      vc-recaptcha
-      theme="'light'"
-      key="model.key"
-      on-create="setWidgetId(widgetId)"
-      on-success="setResponse(response)"
-      on-expire="cbExpiration()"
-      ></div>
     </form>
-    <button class=""
+    <button
+    class="emailIn"
     ng-click = 'watchTogetherEmail()'
     type="submit"
-    class="btn btn-info"
+    class="emailIn"
     value="Submit Button"
     >Submit</button>
   </div>

@@ -148,16 +148,26 @@ function($scope, $location, $http, flix) {
     //steaming info and display properties
     $scope.getInfo = function() {
       for (var i = 0; i < $scope.flix.length; i++) {
+        //check each movie, if it is listed as adult remove it
+        while ($scope.flix[i].adult === true) {
+          $scope.flix.splice(i,1);
+        }
         //set default states for all movies
         $scope.flix[i].netflix = false;
         $scope.flix[i].info = false;
         $scope.flix[i].favorite = false;
+        $scope.flix[i].stars = [];
         //check each movie to see if it is in favorites array
         for (var j = 0; j < flix.favorites.length; j++) {
           if ($scope.flix[i].title === flix.favorites[j].title &&
             $scope.flix[i].release_date === flix.favorites[j].release_date) {
               $scope.flix[i].favorite = true;
             }
+          }
+          console.log('vote avage: ' + $scope.flix[i].vote_average);
+          //add star rating to each film
+          for (j = 0; j<($scope.flix[i].vote_average/2) ; j++) {
+            $scope.flix[i].stars.push('../images/star.jpg');
           }
           //search the netflix api to see if movie is avalible
           var title = $scope.flix[i].title;
@@ -168,7 +178,7 @@ function($scope, $location, $http, flix) {
             $scope.flix[i].poster = '../images/black.jpg';
           } else {
             //this creates a full link to display the poster to the DOM
-            $scope.flix[i].poster = ('https://image.tmdb.org/t/p/w1280' +
+            $scope.flix[i].poster = ('https://image.tmdb.org/t/p/w780' +
             $scope.flix[i].poster_path);
           }
         }
@@ -274,25 +284,34 @@ function($scope, $http, flix) {
 
 togetherApp.controller('selectedController', ["$scope", 'vcRecaptchaService',
 "$http", "flix", function($scope, vcRecaptchaService, $http, flix) {
+
   console.log('$selectedController standing by.');
   $scope.selectedFlick = flix.selectedFlick;
+  $scope.stars = $scope.selectedFlick.stars;
   $scope.humanValidation = null;
   $scope.widgetId = null;
   $scope.model = {key: '6Ld4gxMUAAAAAASHnclfSWBIZK0ZdLCxorB4Y_vr'};
-
+  console.log('these are the stars of the show ' + $scope.selectedFlick.star);
+  //saves token from Google for captcha
   $scope.setResponse = function (response) {
     console.info('Response available');
     $scope.humanValidation = response;
   };
+
+  //creates a new widget id after the old one expires
   $scope.setWidgetId = function (widgetId) {
     console.info('Created widget ID: %s', widgetId);
     $scope.widgetId = widgetId;
   };
+
+  //reloads captcha after experiation
   $scope.cbExpiration = function() {
     console.info('Captcha expired. Resetting response object');
     vcRecaptchaService.reload($scope.widgetId);
     $scope.humanValidation = null;
   };
+
+  //validates captcha and sends the email address from the user to the server
   $scope.submit = function () {
     var valid;
     console.log('sending the captcha response to the server', $scope.humanValidation);
@@ -304,27 +323,29 @@ togetherApp.controller('selectedController', ["$scope", 'vcRecaptchaService',
     vcRecaptchaService.reload($scope.widgetId);
   }
 };
+
 $scope.watchTogetherEmail = function() {
   if ($scope.humanValidation === null) {
     swal('Please confirm you are not a robot' ,
     '01101000 01110101 01101101 01100001 01101110 ', 'error');
-  }else{
-  console.log('sending the captcha response to the server', $scope.humanValidation);
-  var movieNight = {};
-  movieNight.partner = $scope.watchWith;
-  movieNight.flick = $scope.selectedFlick;
-  movieNight.humanValidation = $scope.humanValidation;
-  $http({
-    method: 'PUT',
-    url: '/auth/watchTogether',
-    data: movieNight
-  }).then(function successCallback(response) {
-    console.log(response);
-    swal("Email Sent", "", "success");
-  }, function errorCallback(error) {
-    console.log('error', error);
-  }
-);
+  } else{
+    console.log('sending the captcha response to the server', $scope.humanValidation);
+    var movieNight = {};
+    movieNight.partner = $scope.watchWith;
+    movieNight.flick = $scope.selectedFlick;
+    movieNight.humanValidation = $scope.humanValidation;
+    $http({
+      method: 'PUT',
+      url: '/auth/watchTogether',
+      data: movieNight
+    }).then(function successCallback(response) {
+      console.log(response);
+      swal("Email Sent", "", "success");
+      $scope.watchWith = '';
+    }, function errorCallback(error) {
+      console.log('error', error);
+    }
+  );
 }
 };
 }]);

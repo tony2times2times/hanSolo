@@ -6,6 +6,7 @@
       <input type="radio" name="mediaType" value="movie" checked>
       <label for="tv">TV Show</label>
       <input type="radio" name="mediaType" value="tv">
+      <button ng-click='search()' type="button" name="search">SEARCH</button>
     </form>
   </div>
   <div class="container-fluid">
@@ -21,7 +22,7 @@
         <br>
         language : {{flick.original_language}}
         <br>
-        <a 
+        <a
         href='{{flick.netflixLink}}'
         target="_blank">
         <img ng-if ="flick.netflix"
