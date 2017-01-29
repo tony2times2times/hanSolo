@@ -6,12 +6,31 @@
     <br>
     <div class="col-sm-4">
       <p class='selected-text' >{{selectedFlick.overview}}</p>
-      <form ng-submit='watchTogetherEmail()' class="emailIn">
+      <form ng-submit='watchTogetherEmail()' class="emailIn"  >
         <label class="" for="watchWith">Watch this movie with...</label>
-        <input class="" type="email" class="form-control" ng-model="watchWith" aria-describedby="emailHelp" placeholder="Enter email"></input>
-        <div vc-recaptcha key="'6Ld4gxMUAAAAAASHnclfSWBIZK0ZdLCxorB4Y_vr'"></div>
-      </form>
-      <button class="" ng-click = 'watchTogetherEmail()' type="submit" class="btn btn-info" value="Submit Button">Submit</button>
-    </div>
+        <input
+        class="form-control"
+        type="email"
+        class="form-control"
+        ng-model="watchWith"
+        aria-describedby="emailFriend"
+        placeholder="Enter email">
+      </input>
+      <div
+      vc-recaptcha
+      theme="'light'"
+      key="model.key"
+      on-create="setWidgetId(widgetId)"
+      on-success="setResponse(response)"
+      on-expire="cbExpiration()"
+      ></div>
+    </form>
+    <button class=""
+    ng-click = 'watchTogetherEmail()'
+    type="submit"
+    class="btn btn-info"
+    value="Submit Button"
+    >Submit</button>
   </div>
+</div>
 </div>
