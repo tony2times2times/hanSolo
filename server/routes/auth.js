@@ -107,7 +107,7 @@ function emailFriend(req, res) {
       }
     });
 
-    var startTime = new Date(Date.now() + 18000); //1800000
+    var startTime = new Date(Date.now() + 1); //1800000
     var endTime = new Date(startTime.getTime() + 1000);
     var j = schedule.scheduleJob({
       start: startTime,
