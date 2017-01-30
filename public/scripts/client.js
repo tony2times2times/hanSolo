@@ -245,6 +245,7 @@ function($scope, $location, $http, flix) {
 togetherApp.controller('logInController', ["$scope", "$http", "flix",
 function($scope, $http, flix) {
   console.log('logInController standing by.');
+
   $scope.loggedIn = flix.loggedIn;
   $scope.signOut = function() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -258,30 +259,30 @@ function($scope, $http, flix) {
 
   //When a user signs in or opens the web page.
   function onSignIn(googleUser) {
-    profile = googleUser.getBasicProfile();
-    console.log('Hello ' + profile.getName());
-    $http({
-      method: 'POST',
-      url: '/auth'
-    }).then(function successCallback(response) {
-      console.log(response);
-      var auth = response.data.status;
-      var favorites = response.data.favorites;
-      if (response.data.status) {
-        flix.loggedIn = true;
-        flix.favorites = favorites;
-      } else {
-        flix.loggedIn = false;
-      }
-    }, function errorCallback(error) {
-      console.log('error', error);
-    });
-    $scope.loggedIn = flix.loggedIn;
-    $scope.$apply();
-  }
-  window.onSignIn = onSignIn;
-}]);
-
+      profile = googleUser.getBasicProfile();
+      console.log('Hello ' + profile.getName());
+      $http({
+        method: 'POST',
+        url: '/auth'
+      }).then(function successCallback(response) {
+        console.log(response);
+        var auth = response.data.status;
+        var favorites = response.data.favorites;
+        if (response.data.status) {
+          flix.loggedIn = true;
+          flix.favorites = favorites;
+        } else {
+          flix.loggedIn = false;
+        }
+      }, function errorCallback(error) {
+        console.log('error', error);
+      });
+      $scope.loggedIn = flix.loggedIn;
+      $scope.$apply();
+    }
+    window.onSignIn = onSignIn;
+  }]);
+  
 togetherApp.controller('selectedController', ["$scope", 'vcRecaptchaService',
 "$http", "flix", function($scope, vcRecaptchaService, $http, flix) {
 

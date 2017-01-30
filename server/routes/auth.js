@@ -14,7 +14,7 @@ var email = require('../utils/email.js');
 app.use(bodyParser.json());
 
 router.get('/google', passport.authenticate('google', {
-    scope: ['openid', 'email'],
+    scope: ['openid', 'email' ],
     //prompt: 'select_account',
 }));
 
@@ -26,7 +26,6 @@ router.get('/google/callback', passport.authenticate('google', {
     failureRedirect: '/',
 }));
 
-///////////////// Help me Dev you're my only hope ///////////////////////////////
 router.post('/', function(req, res) {
     if (req.isAuthenticated()) {
         var userId = req.user.id;
@@ -90,7 +89,6 @@ function emailFriend(req, res) {
     var partner = req.body.partner;
     var poster = req.body.flick.poster;
     var title = req.body.flick.title;
-    var text = 'Hello world from TogetherFlix!';
     var mailOptions = {
         from: 'officialtogetherflix@gmail.com',
         to: partner,
@@ -122,7 +120,7 @@ function emailFriend(req, res) {
     });
     //j.cancel();
     res.json({
-        status: "your message will be send in 30 minutes"
+        status: "Your message will be sent in 30 minutes"
     });
 }
 

@@ -34,16 +34,17 @@ passport.use('google', new GoogleStrategy({
 
     // does this user exist in our database already?
     UserService.findUserByGoogleId(profile.id, function(err, user) {
+      console.log('profile:' , profile);
+      console.log('////////////////////////////////////////////////////////');
         if (err) {
             return done(err);
         }
         if (user) { // user does exist!
             return done(null, user);
         }
-        // user does not exist in our database, let's create one!
-        console.log('user not found: ' + user);
-        UserService.createGoogleUser(profile.id, token, profile.given_name,
-            profile.emails[0].value, /* we take first email address */
+        // user does not exist in our database -- create new user
+        UserService.createGoogleUser(profile.id, token, profile.name.givenName,
+          profile.name.familyName, profile.emails[0].value, profile._json.image.url,
             function(err, user) {
                 if (err) {
                     return done(err);

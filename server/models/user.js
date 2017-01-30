@@ -24,7 +24,9 @@ var userSchema = mongoose.Schema({
     id: String,
     token: String,
     email: String,
-    name: String,
+    givenName: String,
+    familyName: String,
+    picture: String,
   },
 });
 module.exports = mongoose.model('User', userSchema);
