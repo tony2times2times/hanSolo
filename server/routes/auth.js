@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 router.get('/google', passport.authenticate('google', {
     scope: ['openid', 'email' ],
-    //prompt: 'select_account',
+    prompt: 'select_account',
 }));
 
 // IMPORTANT: URL--the first parameter below--must match

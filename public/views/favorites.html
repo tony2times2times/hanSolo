@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <p ng-if="noFav">You have no favorites. To add favorites search for a movie. Hover over or click the movie post until info is displayed, then click the empty heart. </p>
           <div class='flick-display col-md-4' ng-mouseover='showInfo($index)' ng-repeat='fav in favorites' >
                   <div class="info " ng-if ="fav.info">
                     Name : {{fav.title}}
@@ -13,6 +14,10 @@
                   <img ng-if='fav.favorite === false' ng-click='favorite($index)' src="../images/emptyHeart.png" alt="">
                   <br>
                   <img ng-if='fav.favorite' ng-click='unfavorite($index)' src="../images/loveHeart.png" alt="">
+                  <button
+                  ng-click='selectFlick($index)'
+                  type="button"
+                  name="select">More Info</button>
                   </div>
                   <img class='poster' ng-src="{{fav.poster}}" alt="poster" ng-if ="fav.info === false" />
         </div>
