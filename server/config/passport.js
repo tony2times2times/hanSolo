@@ -10,7 +10,7 @@ var UserService = require('../services/user.js');
 
 // serialize the user onto the session
 passport.serializeUser(function(user, done) {
-    done(null, user.id, user.name);
+    done(null, user.id, user.google.givenName, user.google.familyName);
 });
 
 // deserialize the user from the session and provide user object
@@ -34,8 +34,7 @@ passport.use('google', new GoogleStrategy({
 
     // does this user exist in our database already?
     UserService.findUserByGoogleId(profile.id, function(err, user) {
-      console.log('profile:' , profile);
-      console.log('////////////////////////////////////////////////////////');
+      console.log('searching for user');
         if (err) {
             return done(err);
         }

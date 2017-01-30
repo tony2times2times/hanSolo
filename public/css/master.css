@@ -134,3 +134,81 @@ html, body {
 #TMDB #netflixroulette{
   display: inline;
 }
+
+#sign-out-button{
+height: 5px;
+}
+ul{
+  color: red;
+}
+
+/*/////////////////////////////////NAV BAR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+.navbar-default {
+  background-color: #eaeaea;
+  border-color: #000000;
+}
+.navbar-default .navbar-brand {
+  color: #f90000;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #b6b6b6;
+}
+.navbar-default .navbar-text {
+  color: #f90000;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #f90000;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #b6b6b6;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #b6b6b6;
+  background-color: #000000;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #b6b6b6;
+  background-color: #000000;
+}
+.navbar-default .navbar-toggle {
+  border-color: #000000;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #000000;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #f90000;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #f90000;
+}
+.navbar-default .navbar-link {
+  color: #f90000;
+}
+.navbar-default .navbar-link:hover {
+  color: #b6b6b6;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #f90000;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #b6b6b6;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #b6b6b6;
+    background-color: #000000;
+  }
+}
