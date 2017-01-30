@@ -290,7 +290,7 @@ email.watchTogether = function(sender, partner, poster, title){
   '                <tr>'+
   '                  <td class="content-block">'+
   '                    <span class="apple-link">TogetherFlix Inc</span>'+
-  '                    <br> Hate movies, people and fun? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.'+
+  '                    <!-- <br> Hate movies, people and fun? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>. -->'+
   '                  </td>'+
   '                </tr>'+
   '                <tr>'+

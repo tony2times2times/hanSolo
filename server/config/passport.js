@@ -10,7 +10,7 @@ var UserService = require('../services/user.js');
 
 // serialize the user onto the session
 passport.serializeUser(function(user, done) {
-    done(null, user.id, user.google.givenName, user.google.familyName);
+    done(null, user.id, user.google.givenName, user.google.familyName, user.google.email);
 });
 
 // deserialize the user from the session and provide user object
